@@ -66,4 +66,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+
+    implementation(project(":composeAdmobAds:core"))
+    implementation(project(":composeAdmobAds:appOpen"))
+    implementation(project(":composeAdmobAds:interstitials"))
+    implementation(project(":composeAdmobAds:nativeAds"))
 }

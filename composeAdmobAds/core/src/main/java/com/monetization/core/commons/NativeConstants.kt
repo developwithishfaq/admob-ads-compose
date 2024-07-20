@@ -1,8 +1,11 @@
 package com.monetization.core.commons
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import com.google.android.gms.ads.VideoOptions
+import com.google.android.gms.ads.nativead.NativeAdOptions
 
 object NativeTemplates {
     const val TemplateOne = "native_template_one"
@@ -43,6 +46,32 @@ object NativeConstants {
             View.VISIBLE
         } else {
             View.GONE
+        }
+    }
+
+
+    fun getNativeAdOptions(context: Activity): NativeAdOptions {
+        val builder = NativeAdOptions.Builder()
+        if (context.window.decorView.layoutDirection == View.LAYOUT_DIRECTION_RTL) {
+            builder.setAdChoicesPlacement(NativeAdOptions.ADCHOICES_TOP_LEFT)
+        }
+        return builder.setVideoOptions(
+            VideoOptions.Builder().setStartMuted(true).build()
+        ).build()
+    }
+
+
+    fun String.getAdLayout(context: Context): View {
+        try {
+            val resourceId = context.resources.getIdentifier(this, "layout", context.packageName)
+            return LayoutInflater.from(context).inflate(resourceId, null, false)
+        } catch (_: Exception) {
+            val resourceId = context.resources.getIdentifier(
+                this,
+                NativeTemplates.TemplateTwo,
+                context.packageName
+            )
+            return LayoutInflater.from(context).inflate(resourceId, null, false)
         }
     }
 
